@@ -1,0 +1,61 @@
+/*Adrian Aponte
+ITMD 421
+Creates a table of products 
+
+Creates roles for Executive,Sales,Marketing, and Production departments then assigns them to approprite users.
+*/
+drop table RAHproducts;
+create table RAHproducts(
+	productid	number,
+	description	varchar(50),
+	color		varchar(20),
+	instock		number,
+	ourcost		number,
+	primary key(productid)
+);
+
+drop table RAHproducts;
+create table RAHproducts(
+	productid	number,
+	description	varchar(50),
+	color		varchar(20),
+	instock		number,
+	ourcost		number,
+	primary key     (productid)
+);
+
+INSERT INTO RAHproducts values(01, 'Splinter Ninja Turtle Action Figure', 	'Brown', 	01, 8 );
+INSERT INTO RAHproducts values(02, 'Raphael Ninja Turtle Action Figure',	'Red', 		12, 10 );
+INSERT INTO RAHproducts values(03, 'Leonardo Ninja Turtle Action Figure',	'Blue', 	23, 12 );
+INSERT INTO RAHproducts values(04, 'Donatello Ninja Turtle Action Figure',	'Purple', 	34, 10 );
+INSERT INTO RAHproducts values(05, 'Casey Jones Ninja Turtle Action Figure',	'White', 	15, 7 );
+INSERT INTO RAHproducts values(06, 'April Oneil Ninja Turtle Action Figure',	'Pink', 	62, 7 );
+INSERT INTO RAHproducts values(07, 'Shredder Ninja Turtle Action Figure',	'Silver', 	3, 15 );
+INSERT INTO RAHproducts values(08, 'Michael Angelo Ninja Turtle Action Figure',	'Orange', 	45, 11 );
+INSERT INTO RAHproducts values(09, 'Foot Clan Ninja Turtle Action Figure',	'Black', 	14, 8 );
+INSERT INTO RAHproducts values(10, 'Metal Head Ninja Turtle Action Figure',	'Platinum', 	5, 15 );
+
+create user AApresident identified by password;
+create user AAvp 	identified by password;
+create user AAceo 	identified by password;
+create user AAmanager 	identified by password;
+create user AAquery 	identified by password;
+create user AAmarket 	identified by password;
+create user AAassistant identified by password;
+create user AAprodmgr 	identified by password;
+create user AAshipping 	identified by password;
+
+CREATE ROLE AAproduction;
+GRANT update,insert,delete on RAHproducts to AAproduction;
+GRANT AAproduction to AAprodmgr ,AAshipping ;
+
+CREATE ROLE AAexecutive;
+GRANT update on RAHproducts to AAexecutive;
+GRANT AAexecutive to AApresident, AAvp ,AAceo ;
+
+CREATE ROLE AAAmarketing;
+GRANT update(description) ON RAHproducts to AAAmarketing;
+GRANT AAAmarketing to AAmarket,AAassistant;
+
+CREATE ROLE AAAsales;
+GRANT SELECT ON RAHproducts to AAAsales;
