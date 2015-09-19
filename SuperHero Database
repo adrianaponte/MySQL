@@ -1,0 +1,88 @@
+/*
+Adrian Aponte A20265104
+ITM 421 Midterm
+
+1.	Create two tables. In each table:
+
+•	Create a named primary key constraint
+•	Create a check constraint (make up the check condition)
+
+Also create a foreign key constraint to relate the two tables. Make up the table and column names; just make sure that each of the two tables use VARCHAR2, NUMBER, and DATE data types.
+
+2.	Write SQL statements to INSERT, UPDATE, DELETE and SELECT for each of the tables you created in #1.
+
+*/
+
+drop table comicHeroes;
+create table comicHeroes(
+	heroesID	NUMBER,
+	heroesName VARCHAR2(30),
+	heroesBday DATE,
+	CONSTRAINT pk_comicHeroes PRIMARY KEY(heroesID),
+	CONSTRAINT ck_comicHeroes CHECK (heroesID>0)
+);
+
+insert into comicHeroes values (1,'Thor','01-AUG-68');
+insert into comicHeroes values (2,'Iron Man','01-MAR-63');
+insert into comicHeroes values (3,'Ant-Man','01-JAN-62');
+insert into comicHeroes values (4,'Wasp','01-JUN-63');
+insert into comicHeroes values (5,'Hulk','01-MAY-62');
+insert into comicHeroes values (6,'Captain America','01-MAR-41');
+insert into comicHeroes values (7,'Hawkeye','01-SEP-64');
+insert into comicHeroes values (8,'Scarlet Witch','01-MAR-64');
+insert into comicHeroes values (9,'Spider-Man','15-AUG-62');
+insert into comicHeroes values (10,'Batman','01-MAY-39');
+insert into comicHeroes values (11,'Super Man','18-APR-38');
+insert into comicHeroes values (12,'Wonder Woman','01-JAN-42');
+
+drop table comicHeroGroup;
+create table comicHeroGroup(
+	heroGroupID	NUMBER,
+	heroGroupName VARCHAR2(30),
+	heroGroupAssemblyDay DATE,
+	CONSTRAINT pk_heroGroupID PRIMARY KEY(heroGroupID),
+	CONSTRAINT fk_comicHeroes FOREIGN KEY (heroesID) REFERENCES comicHeroes(heroesID),
+	CONSTRAINT ck_heroGroupID CHECK (heroGroupName BETWEEN 0 AND 100000)
+);
+
+insert into comicHeroGroup values (1,'The Avengers1','01-SEP-63');
+insert into comicHeroGroup values (2,'The Avengers2','02-SEP-63');
+insert into comicHeroGroup values (3,'The Avengers3','03-SEP-63');
+insert into comicHeroGroup values (4,'The Avengers4','04-SEP-63');
+insert into comicHeroGroup values (5,'The Avengers5','05-SEP-63');
+insert into comicHeroGroup values (6,'The Avengers6','06-SEP-63');
+insert into comicHeroGroup values (7,'The Avengers7','07-SEP-63');
+insert into comicHeroGroup values (8,'The Avengers8','08-SEP-63');
+insert into comicHeroGroup values (9,'The Avengers9','09-SEP-63');
+insert into comicHeroGroup values (10,'The Justice League1','26-FEB-60');
+insert into comicHeroGroup values (11,'The Justice League2','27-FEB-60');
+insert into comicHeroGroup values (12,'The Justice League3','28-FEB-60');
+
+
+update comicHeroes set heroesName='Bruce Wayne' where heroesName='Batman';
+update comicHeroes set heroesName='Clark Kent' where heroesName='Super Man';
+update comicHeroes set heroesName='Diana Prince' where heroesName='Wonder Woman';
+
+update comicHeroGroup set heroGroupName='Worst Team Ever1' where comicHeroGroup='The Justice League1';
+update comicHeroGroup set heroGroupName='Worst Team Ever2' where comicHeroGroup='The Justice League2';
+update comicHeroGroup set heroGroupName='Worst Team Ever3' where comicHeroGroup='The Justice League3';
+
+
+DELETE FROM comicHeroes WHERE heroesID=10 AND heroesName='Bruce Wayne'AND heroesBday ='01-MAY-39';
+DELETE FROM comicHeroes WHERE heroesID=11 AND heroesName='Clark Kent'AND heroesBday ='18-APR-38';
+DELETE FROM comicHeroes WHERE heroesID=12 AND heroesName='Diana Prince'AND heroesBday ='01-JAN-42';
+
+DELETE FROM comicHeroGroup WHERE heroGroupID=10 AND heroGroupName='Worst Team Ever1'AND heroGroupAssemblyDay ='26-FEB-60';
+DELETE FROM comicHeroGroup WHERE heroGroupID=11 AND heroGroupName='Worst Team Ever2'AND heroGroupAssemblyDay ='27-FEB-60';
+DELETE FROM comicHeroGroup WHERE heroGroupID=12 AND heroGroupName='Worst Team Ever3'AND heroGroupAssemblyDay ='28-FEB-60';
+
+SELECT
+comicHeroes.heroesID,
+comicHeroGroup.fk_comicHeroes 
+FROM
+comicHeroes, 
+comicHeroGroup 
+WHERE
+comicHeroes.heroesID = comicHeroGroup.heroesID;
+
+
