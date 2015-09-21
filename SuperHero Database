@@ -2,14 +2,7 @@
 Adrian Aponte A20265104
 ITM 421 Midterm
 
-1.	Create two tables. In each table:
-
-•	Create a named primary key constraint
-•	Create a check constraint (make up the check condition)
-
-Also create a foreign key constraint to relate the two tables. Make up the table and column names; just make sure that each of the two tables use VARCHAR2, NUMBER, and DATE data types.
-
-2.	Write SQL statements to INSERT, UPDATE, DELETE and SELECT for each of the tables you created in #1.
+A small Super Hero Database to demonstrate the ability to insert,update,delete, and select from a database.
 
 */
 
